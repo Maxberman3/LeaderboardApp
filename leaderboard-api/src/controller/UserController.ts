@@ -1,26 +1,26 @@
-import {getRepository} from "typeorm";
-import {NextFunction, Request, Response} from "express";
-import {User} from "../entity/User";
+import { getRepository } from "typeorm";
+import { NextFunction, Request, Response } from "express";
+import { User } from "../entity/User";
+import { UserScore } from "../entity/UserScore";
 
 export class UserController {
 
-    private userRepository = getRepository(User);
+	private userRepo = getRepository(User);
 
-    async all(request: Request, response: Response, next: NextFunction) {
-        return this.userRepository.find();
-    }
+	async addScore(request: Request<{ name: string }, User, { score: number }>) {
+		let user = await this.userRepo.findOne({ name: request.params.name }, { relations: ["scores"] });
+		let score = new UserScore();
+		score.score = request.body.score;
 
-    async one(request: Request, response: Response, next: NextFunction) {
-        return this.userRepository.findOne(request.params.id);
-    }
+		if (user) {
+			user.scores.push(score);
+		} else {
+			user = User.create({
+				name: request.params.name,
+			});
+			user.scores.push(score);
+		}
 
-    async save(request: Request, response: Response, next: NextFunction) {
-        return this.userRepository.save(request.body);
-    }
-
-    async remove(request: Request, response: Response, next: NextFunction) {
-        let userToRemove = await this.userRepository.findOne(request.params.id);
-        await this.userRepository.remove(userToRemove);
-    }
-
+		return this.userRepo.save(user);
+	}
 }

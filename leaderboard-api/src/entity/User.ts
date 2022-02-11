@@ -1,18 +1,29 @@
-import {Entity, PrimaryGeneratedColumn, Column} from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
+import { UserScore } from "./UserScore";
 
-@Entity()
+@Entity({ name: "users" })
 export class User {
 
-    @PrimaryGeneratedColumn()
-    id: number;
+	@PrimaryGeneratedColumn()
+	public id: number;
 
-    @Column()
-    firstName: string;
+	@Column({ unique: true })
+	public name: string;
 
-    @Column()
-    lastName: string;
+	@OneToMany(type => UserScore, userScore => userScore.user, { cascade: true})
+	public scores: UserScore[];
 
-    @Column()
-    age: number;
+	public static create(props: { name: string, scores?: UserScore[] }): User {
+		const entity = new User();
+		entity.name = props.name;
+
+		if (props.scores) {
+			entity.scores = props.scores;
+		} else {
+			entity.scores = [];
+		}
+
+		return entity;
+	}
 
 }
