@@ -1,8 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Col, Container, Row } from "react-bootstrap";
 import "./app.css"
+import ScoreForm from "./components/ScoreForm";
+
+interface LeaderBoard {
+	
+}
 
 function App() {
+	const leaderBoard = useState<>()
+
 	return (
 		<Container>
 			<Row>
@@ -10,6 +17,7 @@ function App() {
 			</Row>
 			<Row>
 				<Col>
+					<ScoreForm />
 				</Col>
 			</Row>
 		</Container>
