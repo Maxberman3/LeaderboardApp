@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseUrl = `http://${process.env.API_HOST}:${process.env.API_PORT}/leaderboard`;
+const baseUrl = `/api/leaderboard`;
 
 export interface LeaderBoardEntry {
 	userId: number,

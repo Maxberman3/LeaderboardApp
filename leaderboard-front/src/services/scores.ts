@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseUrl = `http://${process.env.API_HOST}:${process.env.API_PORT}/users`;
+const baseUrl = `/api/users`;
 
 export class ScoreService {
 	public static async submit(name: string, score: number) {

@@ -42,3 +42,14 @@ services:
     # environment:
     #   API_HOST: api
     #   API_PORT: 3000
+  nginx:
+    depends_on:
+      - api
+      - client
+    restart: always
+    build:
+      dockerfile: Dockerfile
+      context: ./nginx
+    ports:
+      - "3050:80"
+    
