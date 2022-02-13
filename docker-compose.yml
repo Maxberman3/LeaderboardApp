@@ -1,0 +1,44 @@
+version: '3'
+services:
+
+  postgres:
+    image: "postgres:9.6.1"
+    ports:
+      - "20000:5432"
+    environment:
+      POSTGRES_USER: "test"
+      POSTGRES_PASSWORD: "test"
+      POSTGRES_DB: "test"
+    restart: always
+
+  api:
+    build:
+      dockerfile: Dockerfile
+      context: "./leaderboard-api"
+    environment:
+      TYPEORM_HOST: postgres
+      # CLIENT_HOST: client
+    depends_on:
+      - postgres
+    volumes:
+      - /app/node_modules
+      - ./leaderboard-api:/app
+    ports:
+      - 3000:3000
+    # command: bash -c 'while !</dev/tcp/postgres/20000; do sleep 1; done; npm start'
+
+  client:
+    stdin_open: true
+    build:
+      dockerfile: Dockerfile
+      context: ./leaderboard-front
+    volumes:
+      - /app/node_modules
+      - ./leaderboard-front:/app
+    depends_on:
+      - api
+    ports:
+      - 3080:3080
+    # environment:
+    #   API_HOST: api
+    #   API_PORT: 3000

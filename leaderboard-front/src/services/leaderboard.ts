@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseUrl = "http://localhost:3000/leaderboard";
+const baseUrl = `http://${process.env.API_HOST}:${process.env.API_PORT}/leaderboard`;
 
 export interface LeaderBoardEntry {
 	userId: number,
@@ -11,6 +11,7 @@ export interface LeaderBoardEntry {
 
 export class LeaderBoardService {
 	public static async getTopTen(): Promise<LeaderBoardEntry[]> {
+		console.log(baseUrl)
 		const res = await axios({
 			method: 'get',
 			url: baseUrl,

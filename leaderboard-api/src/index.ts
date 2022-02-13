@@ -7,13 +7,10 @@ import { Routes } from "./routes";
 import cors from "cors";
 
 const APPLICATION_PORT = 3000;
-const ALLOWED_ORIGIN = "http://localhost:3080"
 
 createConnection().then(async connection => {
 	const app = express();
-	app.use(cors({
-		origin: ALLOWED_ORIGIN
-	}))
+	app.use(cors())
 	app.use(bodyParser.json());
 
 	// register express routes from defined application routes
