@@ -16,9 +16,7 @@ export const ScoreForm: FC<ScoreFormProps> = ({ fetchLeaderBoard }) => {
 	const { handleSubmit, formState: { errors }, control } = useForm<ScoreInput>();
 
 	const submitScoreForm = async (data: ScoreInput) => {
-		console.log(`sending ${JSON.stringify(data)}`);
 		const res = await ScoreService.submit(data.name, data.score);
-		console.log(res);
 		await fetchLeaderBoard()
 	}
 

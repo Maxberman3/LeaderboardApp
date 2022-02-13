@@ -17,7 +17,6 @@ services:
       context: "./leaderboard-api"
     environment:
       TYPEORM_HOST: postgres
-      # CLIENT_HOST: client
     depends_on:
       - postgres
     volumes:
@@ -25,7 +24,6 @@ services:
       - ./leaderboard-api:/app
     ports:
       - 3000:3000
-    # command: bash -c 'while !</dev/tcp/postgres/20000; do sleep 1; done; npm start'
 
   client:
     stdin_open: true
@@ -39,9 +37,6 @@ services:
       - api
     ports:
       - 3080:3080
-    # environment:
-    #   API_HOST: api
-    #   API_PORT: 3000
   nginx:
     depends_on:
       - api

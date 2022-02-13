@@ -11,7 +11,6 @@ export interface LeaderBoardEntry {
 
 export class LeaderBoardService {
 	public static async getTopTen(): Promise<LeaderBoardEntry[]> {
-		console.log(baseUrl)
 		const res = await axios({
 			method: 'get',
 			url: baseUrl,
