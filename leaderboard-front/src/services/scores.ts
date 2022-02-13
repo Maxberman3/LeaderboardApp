@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseUrl = "http://localhost:20000/users";
+const baseUrl = "http://localhost:3000/users";
 
 export class ScoreService {
 	public static async submit(name: string, score: number) {

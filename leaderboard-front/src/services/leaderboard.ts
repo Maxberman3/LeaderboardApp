@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseUrl = "http://localhost:20000/leaderboard";
+const baseUrl = "http://localhost:3000/leaderboard";
 
 export interface LeaderBoardEntry {
 	userId: number,
