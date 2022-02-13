@@ -2,13 +2,15 @@ import React, { useState } from 'react';
 import { Col, Container, Row } from "react-bootstrap";
 import "./app.css"
 import ScoreForm from "./components/ScoreForm";
-
-interface LeaderBoard {
-	
-}
+import { LeaderBoardEntry, LeaderBoardService } from './services/leaderboard';
 
 function App() {
-	const leaderBoard = useState<>()
+	const [leaderBoard, setLeaderBoard] = useState<LeaderBoardEntry[]>([])
+
+	const fetchLeaderBoard = async () => {
+		const fetchedLeaderBoard = await LeaderBoardService.getTopTen();
+		setLeaderBoard(fetchedLeaderBoard);
+	}
 
 	return (
 		<Container>
